@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Managementul Echipei de Fotbal</title>
+    <style>
+        /* Stiluri CSS aici */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Gestiunea Echipei de Fotbal</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Mockup front-end</h2>
+        <button id="buton1">Buton 1: Extrage date JSON-LD</button>
+        <br><br>
+
+        <!-- Container pentru tabelul unificat  -- AICI AFISEAZA TABELUL / daca comentez linia de mai jos nu mia apare tabelul unificat.-->
+        <div id="container-tabel-unificat"></div>
+
+        <!-- Formular pentru înregistrarea datelor -->
+        <form id="formular">
+            <label for="dropdown-cheie">Jucător:</label>
+            <select id="dropdown-cheie">
+                <!-- Opțiunile vor fi populate dinamic folosind JavaScript -->
+            </select>
+            <label for="camp1">Echipă:</label>
+            <input type="text" id="camp1" name="camp1">
+            <label for="camp2">An Transfer:</label>
+            <input type="text" id="camp2" name="camp2">
+            <button type="button" id="buton2">Buton 2: Inserare în RDF4J</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('buton1').addEventListener('click', function () {
+            fetch('buton1_scraping.php')
+                .then(response => response.json())
+                .then(data => {
+                    const tabelUnificat = generareTabelUnificat(data);
+                    document.getElementById('container-tabel-unificat').innerHTML = tabelUnificat;
+                    populareDropdown(data);
+                })
+                .catch(error => {
+                    console.error('Eroare la încărcarea datelor JSON-LD:', error);
+                });
+        });
+
+        function generareTabelUnificat(data) {
+            let tabel = '<h2>Tabel Unificat</h2><table border="1"><thead><tr><th>Nume Jucător</th><th>Data Nașterii</th><th>Nume Echipă</th><th>An Transfer</th></tr></thead><tbody>';
+
+            // Iterăm prin fiecare jucător și echipă și construim rândurile tabelului unificat
+            data['@graph'].forEach(persoană => {
+                persoană.memberOf.forEach(echipă => {
+                    tabel += `<tr><td>${persoană.name}</td><td>${persoană.birthDate}</td><td>${echipă.name}</td><td>${echipă.anTransfer}</td></tr>`;
+                });
+            });
+
+            tabel += '</tbody></table>';
+            return tabel;
+        }
+
+        function populareDropdown(data) {
+            const dropdown = document.getElementById('dropdown-cheie');
+            dropdown.innerHTML = ''; // Curățăm opțiunile existente
+            data['@graph'].forEach((persoană, index) => {
+                const opțiune = document.createElement('option');
+                opțiune.value = index;
+                opțiune.textContent = persoană.name;
+                dropdown.appendChild(opțiune);
+            });
+        }
+
+        document.getElementById('buton2').addEventListener('click', function () {
+            // Obținem indexul opțiunii selectate din dropdown
+            const indexOpțiuneSelectată = document.getElementById('dropdown-cheie').value;
+        
+            // Obținem datele selectate din dropdown
+            const persoanăSelectată = document.getElementById('dropdown-cheie').options[indexOpțiuneSelectată].textContent;
+        
+            // Obținem valorile introduse în formular
+            const numeEchipă = document.getElementById('camp1').value;
+            const anTransfer = document.getElementById('camp2').value;
+        
+            // Formăm obiectul de date pentru a fi trimis la server
+            const dateTrimise = {
+                numeEchipă,
+                anTransfer,
+                persoanăSelectată
+            };
+        
+            // Trimitem datele către buton2_rdf.php
+            fetch('buton2_rdf.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dateTrimise)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Succes:', data))
+            .catch(error => console.error('Eroare:', error));
+        });
+    </script>
+</body>
+</html>

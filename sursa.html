@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echipa de Fotbal</title>
+</head>
+<body>
+    <h1>Echipa de Fotbal</h1>
+
+    <!-- Tabelul cu jucători -->
+    <h2>Jucători</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nume Jucător</th>
+                <th>Data Nașterii</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Lionel Messi</td>
+                <td>24 iunie 1987</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Cristiano Ronaldo</td>
+                <td>5 februarie 1985</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Radu Drăgușin</td>
+                <td>3 februarie 2002</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Tabelul cu echipele la care a jucat fiecare jucător -->
+    <h2>Echipe Jucători</h2>
+    <table border="1">
+        <thead>
+            <tr>
+				<th>ID </th>
+                <th>ID Jucător</th>
+                <th>Nume Echipă</th>
+                <th>An Transfer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+				<td>A</td>
+                <td>1</td>
+                <td>FC Barcelona</td>
+                <td>2004</td>
+            </tr>
+            <tr>
+				<td>B</td>
+                <td>1</td>
+                <td>Paris Saint-Germain</td>
+                <td>2021</td>
+            </tr>
+            <tr>
+				<td>C</td>
+                <td>2</td>
+                <td>Manchester United</td>
+                <td>2003</td>
+            </tr>
+            <tr>
+				<td>D</td>
+                <td>2</td>
+                <td>Real Madrid</td>
+                <td>2009</td>
+            </tr>
+            <tr>
+				<td>E</td>
+                <td>2</td>
+                <td>Juventus</td>
+                <td>2018</td>
+            </tr>
+            <tr>
+				<td>E</td>
+                <td>3</td>
+                <td>Juventus</td>
+                <td>2018</td>
+            </tr>
+            <tr>
+				<td>F</td>
+                <td>3</td>
+                <td>Genoa</td>
+                <td>2021</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Date JSON-LD -->
+    <script type="application/ld+json">
+    {
+	"@context": {"@vocab":"http://schema.org/",
+                 "gkg":"http://g.co/kg/"
+                },
+	"@graph": [
+		{
+			"@type": "Person",
+			"@id": "gkg:/m/06qjgc",
+			"name": "Lionel Messi",
+			"birthDate": "1987-06-24",
+			"memberOf": [
+				{
+					"@type": "SportsTeam",
+					"@id": "gkg:/m/0hvgt",
+					"name": "FC Barcelona",
+					"anTransfer": "2004"
+				},
+				{
+					"@type": "SportsTeam",
+                    "@id": "gkg:/m/01_1kk",
+					"name": "Paris Saint-Germain",
+					"anTransfer": "2021"
+				}
+			]
+		},
+		{
+			"@type": "Person",
+			"@id": "gkg:/m/02xt6q",
+			"name": "Cristiano Ronaldo",
+			"birthDate": "1985-02-05",
+			"memberOf": [
+				{
+					"@type": "SportsTeam",
+					"@id": "gkg:/m/050fh",
+					"name": "Manchester United",
+					"anTransfer": "2003"
+				},
+				{
+					"@type": "SportsTeam",
+					"@id": "gkg:/m/06l22",
+					"name": "Real Madrid",
+					"anTransfer": "2009"
+				},
+				{
+					"@type": "SportsTeam",
+					"@id": "gkg:/m/045xx",
+					"name": "Juventus",
+					"anTransfer": "2018"
+				}
+			]
+		},
+		{
+			"@type": "Person",
+			"@id": "gkg:/g/11gfndwhh8",
+			"name": "Radu Drăgușin",
+			"birthDate": "2002-02-3",
+			"memberOf": [
+				{
+					"@type": "SportsTeam",
+					"@id": "gkg:/m/045xx",
+					"name": "Juventus",
+					"anTransfer": "2018"
+				},
+				{
+					"@type": "SportsTeam",
+					"@id": "gkg:/m/08vk_r",
+					"name": "Genoa",
+					"anTransfer": "2022"
+				}
+			]
+		}
+	]
+}
+    </script>
+</body>
+</html>
